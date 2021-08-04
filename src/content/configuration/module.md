@@ -243,7 +243,7 @@ module.exports = {
 
 ## `Rule.resourceQuery`
 
-A [`Condition`](#条件) matched with the resource query. This option is used to test against the query section of a request string (i.e. from the question mark onwards). If you were to `import Foo from './foo.css?inline'`, the following condition would match:
+与资源查询相匹配的 [`条件`](#condition)。此选项用于测试请求字符串的查询部分（即从问号开始）。如果你需要通过 `import Foo from './foo.css?inline'` 导入 Foo，则需符合以下条件:
 
 __webpack.config.js__
 
@@ -284,9 +284,9 @@ module.exports = {
 
 `string`
 
-Possible values: `'javascript/auto' | 'javascript/dynamic' | 'javascript/esm' | 'json' | 'webassembly/experimental'`
+可设置值: `'javascript/auto' | 'javascript/dynamic' | 'javascript/esm' | 'json' | 'webassembly/experimental'`
 
-`Rule.type` sets the type for a matching module. This prevents defaultRules and their default importing behaviors from occurring. For example, if you want to load a `.json` file through a custom loader, you'd need to set the `type` to `javascript/auto` to bypass webpack's built-in json importing. (See [v4.0 changelog](https://github.com/webpack/webpack/releases/tag/v4.0.0) for more details)
+`Rule.type` 设置类型用于匹配模块。这可以防止 `defaultRules` 及其默认导入行为发生。例如，如果你想通过自定义 loader 加载一个 `.json` 文件，你会需要将 `type` 设置为 `javascript/auto` 以绕过 webpack 内置的 json 导入。（详参[v4.0 更新日志](https://github.com/webpack/webpack/releases/tag/v4.0.0)）
 
 __webpack.config.js__
 
@@ -317,7 +317,7 @@ __`[UseEntry]`__
 
 传递字符串（如：`use: [ 'style-loader' ]`）是 loader 属性的简写方式（如：`use: [ { loader: 'style-loader'} ]`）。
 
-Loaders can be chained by passing multiple loaders, which will be applied from right to left (last to first configured).
+Loaders 可以通过传入多个 loaders 以达到链式调用的效果，它们会从右到左被应用（从最后到最先配置）。
 
 __webpack.config.js__
 
@@ -351,16 +351,16 @@ module.exports = {
 
 __`function(info)`__
 
-`Rule.use` can also be a function which receives the object argument describing the module being loaded, and must return an array of `UseEntry` items.
+`Rule.use` 也可以是一个函数，接受对象参数，描述被加载的模块，而且必须返回 `UseEntry` 元素的数组。
 
-The `info` object parameter has the following fields:
+`info` 对象参数有以下的字段：
 
-- `compiler`: The current webpack compiler (can be undefined)
-- `issuer`: The path to the module that is importing the module being loaded
-- `realResource`: Always the path to the module being loaded
-- `resource`: The path to the module being loaded, it is usually equal to `realResource` except when the resource name is overwritten via `!=!` in request string
+- `compiler`: 当前 webpack 的编译器（可以是 undefined 值）
+- `issuer`: 模块的路径，该元素正在导入一个被加载的模块(resource)
+- `realResource`: 总会是被加载模块的路径
+- `resource`: 被加载的模块路径，它常常与 `realResource` 相等，只有当资源名称被 request 字符串中的 `!=!` 覆盖时才不相等
 
-The same shortcut as an array can be used for the return value (i.e. `use: [ 'style-loader' ]`).
+相同作用的快捷方式是以数组的形式代替返回值（如 `use: [ 'style-loader' ]`）。
 
 __webpack.config.js__
 
@@ -470,14 +470,14 @@ module.exports = {
 
 __`function(info)`__
 
-A `UseEntry` can also be a function which receives the object argument describing the module being loaded, and must return an options object. This can be used to vary the loader options on a per-module basis.
+`UseEntry` 也可以是一个函数，接受对象参数，描述被加载的模块，而且必须返回一个参数对象。这可用于按模块更改 loader 选项。
 
-The `info` object parameter has the following fields:
+`info` 对象参数有以下的字段：
 
-- `compiler`: The current webpack compiler (can be undefined)
-- `issuer`: The path to the module that is importing the module being loaded
-- `realResource`: Always the path to the module being loaded
-- `resource`: The path to the module being loaded, it is usually equal to `realResource` except when the resource name is overwritten via `!=!` in request string
+- `compiler`: 当前 webpack 的编译器（可以是 undefined 值）
+- `issuer`: 模块的路径，该元素正在导入一个被加载的模块(resource)
+- `realResource`: 总会是被加载模块的路径
+- `resource`: 被加载的模块路径，它常常与 `realResource` 相等，只有当资源名称被 request 字符串中的 `!=!` 覆盖时才不相等
 
 __webpack.config.js__
 
